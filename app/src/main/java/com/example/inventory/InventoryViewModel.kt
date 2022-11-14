@@ -10,12 +10,18 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class InventoryViewModel(private val itemDao: ItemDao): ViewModel() {
-
+    /**
+     * Launching a new coroutine to insert an item in a non-blocking way
+     */
     private fun insertItem(item: Item){
         viewModelScope.launch {
             itemDao.insert(item)
         }
     }
+    /**
+     * Returns an instance of the [Item] entity class with the item info entered by the user.
+     * This will be used to add a new entry to the Inventory database.
+     */
 
     private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item{
         return Item(
@@ -25,6 +31,9 @@ class InventoryViewModel(private val itemDao: ItemDao): ViewModel() {
         )
     }
 
+    /**
+     * Inserts the new Item into database.
+     */
     fun addNewItem(itemName: String, itemPrice: String, itemCount: String){
         val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
         insertItem(newItem)
