@@ -75,6 +75,14 @@ class InventoryViewModel(private val itemDao: ItemDao): ViewModel() {
             updateItem(newItem)
         }
     }
+
+    /**
+     * Returns true if stock is available to sell, false otherwise.
+     */
+
+    fun isStockAvailable(item: Item): Boolean {
+        return item.quantityInStock > 0
+    }
 }
 
 class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
